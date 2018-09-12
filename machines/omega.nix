@@ -29,6 +29,8 @@
 	# USB booting
 	isoImage.makeUsbBootable = true;
 
+	isoImage.compressImage = true;
+
 	# Add Memtest86+ to the CD.
 	boot.loader.grub.memtest86.enable = true;
 

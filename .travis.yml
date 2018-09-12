@@ -1,8 +1,9 @@
 language: nix
+if: tag IS blank
 script:
 - nix-channel --add https://nixos.org/channels/nixos-18.09 nixpkgs
 - nix-channel --update
-- travis_wait nix-build ./build/omega.nix
+- travis_wait 30 nix-build ./build/omega.nix
 before_deploy:
 - git config --local user.name "Duarte David"
 - git config --local user.email "deltaduartedavid@gmail.com"
