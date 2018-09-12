@@ -8,7 +8,6 @@
 
 	networking.hostName = "PI"; # Define your hostname.
 
-
 	services.openssh.enable = true;
 	services.openssh.permitRootLogin = "yes";
 }
