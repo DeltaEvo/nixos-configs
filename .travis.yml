@@ -1,8 +1,6 @@
 language: nix
 if: tag IS blank
-before_script:
-  - export TMPDIR="$(pwd)/tmp"
-  - mkdir "$TMPDIR"
+sudo: required
 script:
   - nix-channel --add https://nixos.org/channels/nixos-18.09 nixpkgs
   - nix-channel --update

@@ -63,7 +63,7 @@ in
 			i3lock
 			firefox-devedition-bin
 			winetricks
-			electrum
+#			electrum
   		]);
 		gtk = {
 			enable = config.services.xserver.enable;
