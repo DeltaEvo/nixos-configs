@@ -7,7 +7,7 @@ script:
 before_deploy:
 - git config --local user.name "Duarte David"
 - git config --local user.email "deltaduartedavid@gmail.com"
-- git tag "$TRAVIS_BRANCH"
+- git tag -f "$TRAVIS_BRANCH"
 deploy:
   provider: releases
   api_key:
