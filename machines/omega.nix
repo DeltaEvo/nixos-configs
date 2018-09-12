@@ -29,8 +29,6 @@
 	# USB booting
 	isoImage.makeUsbBootable = true;
 
-	isoImage.compressImage = true;
-
 	# Add Memtest86+ to the CD.
 	boot.loader.grub.memtest86.enable = true;
 
@@ -38,4 +36,5 @@
  	boot.supportedFilesystems = [ "btrfs" "reiserfs" "vfat" "f2fs" "xfs" "ntfs" "cifs" ];
 
 	services.nixosManual.showManual = true;
+	services.xserver.enable = true;
 }

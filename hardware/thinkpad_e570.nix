@@ -58,17 +58,11 @@
 	services.fprintd.enable = true;
 
 	# Nvidia optimus
-	hardware.bumblebee.enable = true;
+	hardware.bumblebee.enable = config.services.xserver.enable;
     services.xserver.videoDrivers = [ "modesetting" ];
 
 	# Disable bluetooth it suck batery
 	hardware.bluetooth.enable = false;
-
-	hardware.opengl.driSupport32Bit = true;
-	hardware.pulseaudio = {
-		enable = true;
-		support32Bit = true;
-	};
 
 	nix.maxJobs = lib.mkDefault 4;
 	powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";

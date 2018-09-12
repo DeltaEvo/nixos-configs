@@ -11,4 +11,9 @@
 	# Development tools
 	virtualisation.docker.enable = true;
 	services.mongodb.enable = true;
+
+	services.xserver.enable = true;
+
+	# Disable bluetooth it suck batery
+	hardware.bluetooth.enable = false;
 }

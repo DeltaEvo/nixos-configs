@@ -66,8 +66,8 @@ in
 			winetricks
 			electrum
   		]);
-		gtk = pkgs.lib.mkIf config.services.xserver.enable {
-			enable = true;
+		gtk = {
+			enable = config.services.xserver.enable;
 			theme = {
 				package = pkgs.arc-theme;
 				name = "Arc-Dark";
