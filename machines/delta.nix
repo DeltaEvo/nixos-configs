@@ -8,10 +8,7 @@
 
 	networking.hostName = "DELTA"; # Define your hostname.
 
-
 	# Development tools
 	virtualisation.docker.enable = true;
 	services.mongodb.enable = true;
-
-
 }

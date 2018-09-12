@@ -1,0 +1,17 @@
+language: nix
+script:
+- nix-channel --add https://nixos.org/channels/nixos-18.09 nixpkgs
+- nix-channel --update
+- travis_wait nix-build ./build/omega.nix
+before_deploy:
+- git config --local user.name "Duarte David"
+- git config --local user.email "deltaduartedavid@gmail.com"
+- git tag "$TRAVIS_BRANCH"
+deploy:
+  provider: releases
+  api_key:
+    secure: gNjJ79fq6vH51y6IBpJK8oTrLa/eDVFLvW2/tIz8LXd09YQXwvY2MGWb+NkSF1x7Hev3tTI4uiSv+FZWt0O/8pPxboDZmj/uQHY4LvE8nI0mLDXe47/iNHPh+BSnfUxYc8kRyLnb/NBd40MZ87kUVdcnWqn25w5sZyPTLCYzXh11u8DB1cjm06ycCaIry0fHoMDwQbbJi4MnMjQGX/4WhbtVRfE9GuHasx6Rl+QrhEbLJah55EJNLpEpbMdh3uewgJmsz40yg8Mjg7bydqzotPbxTHMMQx50HyeZuP0Bpgmx86dQ8js+vkMCciwzZxgCuT/qzB6eatgIWaAXRCnZZrOabnvHANUbVn70GR4dLdNRVdMskcF9j4xIt5ya1Eovu90q/JXE80+Q3DtQUM1lIDd/LbVVNNRCXS1VCQ2Yz4A1DKkLAxjYm57l6oQy6hP7ogPEbVZPje5He8shj2xk9+3dlyshipgmup3Zz0SGnQ8DC8rEDKwsN5IKdBWXIoJSJpPGq6o74xBVHsorqmULGEGWG8EzAstw45msjPhTTmYHRUPY56ow+6h00mRSEOjjZ41yfOcxooGbi8ujyG2UzNGnMnsr1XGVgghBY9GmQtsQBd3OsKyzqQ9mEsnFS0yWImz6L/d/FeP5cBvObdOMAYTYLMftEpUFznZmeWqDdWk=
+  overwrite: true
+  file_glob: true
+  file: "./result/iso/*"
+  skip_cleanup: true

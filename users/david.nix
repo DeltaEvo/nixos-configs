@@ -16,12 +16,12 @@ in
 
 	programs.fish.enable = true;
 
-	home-manager.users.data = {
+	home-manager.users.david = {
 		home.packages = with pkgs; ([
 			manpages
 			htop
 			ntfs3g
-			nodejs-9_x
+			nodejs-10_x
 			tmux
 			acpi
 			powertop
