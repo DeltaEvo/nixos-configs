@@ -2,7 +2,6 @@
 
 let 
 	polybar = pkgs.polybar.override { i3GapsSupport = true; githubSupport = true; mpdSupport = true; };
-	minecraft = pkgs.minecraft.override { useAlsa = true; };
 	python3 = pkgs.python36.withPackages (ps : [ps.numpy]);
 	winetricks = pkgs.winetricks.override { wine = pkgs.wineStaging; };
 in
