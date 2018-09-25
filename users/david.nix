@@ -49,6 +49,7 @@ in
 			unzip
 			neovim
 			universal-ctags
+			gnupg
   		] ++ pkgs.lib.optionals config.services.xserver.enable [
 			glxinfo
 			vscode
