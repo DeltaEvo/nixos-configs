@@ -1,21 +1,30 @@
 { config, lib, pkgs, ... }:
 
-let 
+let
+	sysPkgs = pkgs;
+	channels = import ../channels.nix;
+	pkgs = channels.unstable;
 	polybar = pkgs.polybar.override { i3GapsSupport = true; githubSupport = true; mpdSupport = true; };
-	python3 = pkgs.python36.withPackages (ps : [ps.numpy]);
 	winetricks = pkgs.winetricks.override { wine = pkgs.wineStaging; };
+	confDir = ./david.config;
 in
 {
 	users.extraUsers.david = {
 	    isNormalUser = true;
 	    home = "/home/david";
 	    extraGroups = [ "wheel" "networkmanager" "docker" ];
-	    shell = pkgs.fish;
+	    shell = sysPkgs.fish;
 	};
 
 	programs.fish.enable = true;
 
 	home-manager.users.david = {
+		home.file = lib.listToAttrs (
+			map (
+				name: (lib.nameValuePair ".config/${name}" ({ source = "${confDir}/${name}"; }) )
+			) (builtins.attrNames (builtins.readDir confDir))
+		);
+
 		home.packages = with pkgs; ([
 			manpages
 			htop
@@ -40,16 +49,8 @@ in
 			unzip
 			neovim
 			universal-ctags
-			python3
-			gdb
-			gnumake
-			cmake
   		] ++ pkgs.lib.optionals config.services.xserver.enable [
-			feh
 			glxinfo
-			albert
-			units
-			polybar
 			vscode
 #			steam
 			discord
@@ -58,9 +59,7 @@ in
 			yubikey-personalization-gui
 			yubioath-desktop
 #			spotify
-			hyper
-			conky
-			i3lock
+			kitty
 			firefox-devedition-bin
 			winetricks
 #			electrum

@@ -1,0 +1,3 @@
+[submodule "users/david.config"]
+	path = users/david.config
+	url = https://github.com/DeltaEvo/.config.git
