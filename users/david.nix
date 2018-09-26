@@ -18,6 +18,10 @@ in
 
 	programs.fish.enable = true;
 
+	services.udev.packages = with sysPkgs; [
+		yubikey-personalization
+	];
+
 	home-manager.users.david = {
 		home.file = lib.listToAttrs (
 			map (
