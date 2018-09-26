@@ -88,5 +88,12 @@ in
 				name = "Papirus-Dark";
 			};
   		};
+
+		services.redshift = {
+			enable = config.services.xserver.enable;
+			# Paris
+			latitude = "48.86";
+			longitude = "2.33";
+		};
 	};
 }
