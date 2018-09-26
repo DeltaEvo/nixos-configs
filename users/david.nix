@@ -65,16 +65,24 @@ in
 			winetricks
 #			electrum
   		]);
+
+		xsession = pkgs.lib.mkIf config.services.xserver.enable {
+			enable = true;
+			windowManager.awesome = {
+				enable = true;
+			};
+		};
+
 		gtk = {
 			enable = config.services.xserver.enable;
 			theme = {
 				package = pkgs.arc-theme;
 				name = "Arc-Dark";
-    		};
-    		iconTheme = {
+			};
+			iconTheme = {
 				package = pkgs.papirus-icon-theme;
 				name = "Papirus-Dark";
-    		};
+			};
   		};
 	};
 }
