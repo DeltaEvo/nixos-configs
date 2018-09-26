@@ -1,6 +1,9 @@
 { config, lib, pkgs, ... }:
 
 {
+	imports = [
+		<nixpkgs/nixos/modules/installer/scan/not-detected.nix>
+	];
 
 	fileSystems = {
 		"/" = {
@@ -59,7 +62,7 @@
 
 	# Nvidia optimus
 	hardware.bumblebee.enable = config.services.xserver.enable;
-    services.xserver.videoDrivers = [ "modesetting" ];
+	services.xserver.videoDrivers = [ "modesetting" ];
 
 	# Disable bluetooth it suck batery
 	hardware.bluetooth.enable = false;
@@ -68,13 +71,13 @@
 	powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
 
 	# Enable trackpoint and disable trackpad
-    services.xserver.config = ''
-      Section "InputClass"
-        Identifier     "Enable libinput for TrackPoint"
-        MatchIsPointer "on"
-        Driver         "libinput"
-      EndSection
-    '';
+	services.xserver.config = ''
+		Section "InputClass"
+			Identifier     "Enable libinput for TrackPoint"
+			MatchIsPointer "on"
+			Driver         "libinput"
+		EndSection
+	'';
 
     services.xserver.modules = [ pkgs.xorg.xf86inputlibinput ];
 }
