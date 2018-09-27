@@ -22,6 +22,8 @@ in
 		yubikey-personalization
 	];
 
+	services.pcscd.enable = true;
+
 	home-manager.users.david = {
 		home.file = lib.listToAttrs (
 			map (
