@@ -6,12 +6,12 @@ let
 in
 {
 	stable = fetchChannel {
-		rev = "69514d78a6b9e7912387fd01934f23f71938dcbb";
-		sha256 = "050h9pa57kd57l73njxpjb331snybddl29x2vpy5ycygvqiw8kcp";
+		rev = "98e3b90b6c8f400ae5438ef868eb992a64b75ce5";
+		sha256 = "0p8ixjww40bxbsa2vzhnqah8a5wqrqjrm3k6wxywm0pfcx7jcwx7";
 	};
 
 	unstable = fetchChannel {
-		rev = "7df10f388dabe9af3320fe91dd715fc84f4c7e8a";
-		sha256 = "14n9nwdmd1jvvic1rnyw4023fm97b0xn4nq801l29vpnfzyab04w";
+		rev = "4649b6ef4b5e7a98d84a36fc7f0a89c65c4c7ad1";
+		sha256 = "1wwqr40jcf7pqr5x9rwz1m42z07sbzawq5d1nyf7h5ccwk25q9mj";
 	};
 }
