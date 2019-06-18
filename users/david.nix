@@ -78,6 +78,7 @@ in
 				enable = true;
 			};
 		};
+		services.compton.enable = config.services.xserver.enable;
 
 		gtk = {
 			enable = config.services.xserver.enable;
