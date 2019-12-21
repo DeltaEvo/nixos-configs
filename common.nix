@@ -1,30 +1,24 @@
 { config, pkgs, ... }:
 
 {
-	imports = [
-		./home-manager.nix
-		./users/david.nix
-	];
+  imports = [ ./home-manager.nix ./users/david.nix ];
 
-	system.stateVersion = "18.09";
+  system.stateVersion = "18.09";
 
-	time.timeZone = "Europe/Paris";
+  time.timeZone = "Europe/Paris";
 
-	nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.allowUnfree = true;
 
-	networking.networkmanager.enable = true;
+  networking.networkmanager.enable = true;
 
-	hardware.opengl = {
-		enable = config.services.xserver.enable;
-		driSupport32Bit = true;
-	};
-	hardware.pulseaudio = {
-		enable = config.services.xserver.enable;
-		support32Bit = true;
-	};
+  hardware.opengl = {
+    enable = config.services.xserver.enable;
+    driSupport32Bit = true;
+  };
+  hardware.pulseaudio = {
+    enable = config.services.xserver.enable;
+    support32Bit = true;
+  };
 
-	environment.systemPackages = with pkgs; [
-		neovim
-		git
-	];
+  environment.systemPackages = with pkgs; [ neovim git ];
 }
