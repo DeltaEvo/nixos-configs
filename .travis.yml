@@ -4,7 +4,7 @@ sudo: required
 script:
   - nix-channel --add https://nixos.org/channels/nixos-18.09 nixpkgs
   - nix-channel --update
-  - travis_wait 60 nix-build ./build/omega.nix
+  - travis_wait 60 nix-build ./build/hera.nix
 deploy:
   provider: releases
   api_key:

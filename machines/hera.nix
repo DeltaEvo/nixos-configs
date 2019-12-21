@@ -16,13 +16,13 @@
     ../common.nix
   ];
 
-  networking.hostName = "OMEGA"; # Define your hostname.
+  networking.hostName = "Hera"; # Define your hostname.
 
   # ISO naming.
   isoImage.isoName =
-    "OMEGA-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}.iso";
+    "Hera-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}.iso";
 
-  isoImage.volumeID = "OMEGA";
+  isoImage.volumeID = "Hera";
 
   # EFI booting
   isoImage.makeEfiBootable = true;

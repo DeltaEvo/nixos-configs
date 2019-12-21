@@ -3,7 +3,7 @@
 {
   imports = [ ../hardware/thinkpad_e570.nix ../common.nix ];
 
-  networking.hostName = "DELTA"; # Define your hostname.
+  networking.hostName = "Zeus"; # Define your hostname.
 
   # Development tools
   virtualisation.docker.enable = true;
