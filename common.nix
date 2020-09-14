@@ -1,9 +1,9 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ ./home-manager.nix ./users/david.nix ];
+  imports = [ ./users/david.nix ];
 
-  system.stateVersion = "18.09";
+  system.stateVersion = "20.03";
 
   time.timeZone = "Europe/Paris";
 

@@ -1,8 +1,6 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports = [ <nixpkgs/nixos/modules/installer/scan/not-detected.nix> ];
-
   fileSystems = {
     "/" = {
       device = "/dev/disk/by-uuid/eb01acce-79ff-4af6-b056-412ec8464956";
@@ -29,18 +27,16 @@
     efi.canTouchEfiVariables = true;
   };
 
-  boot.initrd.luks.devices = [
-    {
-      name = "root";
+  boot.initrd.luks.devices = {
+    "root" = {
       device = "/dev/nvme0n1p5";
       preLVM = true;
-    }
-    {
-      name = "home";
+    };
+    "home" = {
       device = "/dev/sda1";
       preLVM = true;
-    }
-  ];
+    };
+  };
 
   boot.initrd.availableKernelModules =
     [ "xhci_pci" "ahci" "nvme" "usb_storage" "sd_mod" "sr_mod" "sdhci_pci" ];
@@ -51,7 +47,7 @@
   services.fstrim.enable = true;
 
   # UK Keyboard Layout
-  i18n.consoleKeyMap = "uk";
+  console.keyMap = "uk";
   services.xserver.layout = "gb";
   services.xserver.xkbOptions = "compose:ralt";
 
@@ -78,4 +74,6 @@
   '';
 
   services.xserver.modules = [ pkgs.xorg.xf86inputlibinput ];
+
+  hardware.enableRedistributableFirmware = true;
 }

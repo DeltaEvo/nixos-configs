@@ -1,0 +1,94 @@
+{
+  "nodes": {
+    "david-config": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1566658890,
+        "narHash": "sha256-LqJj1Lf77P31cw+3cllWB5Ec1UdB2RPmD1Ttn+bhwTY=",
+        "owner": "DeltaEvo",
+        "repo": ".config",
+        "rev": "770b6c1b3c8ca3fef8683deaebeb65d0de388f80",
+        "type": "github"
+      },
+      "original": {
+        "owner": "DeltaEvo",
+        "repo": ".config",
+        "type": "github"
+      }
+    },
+    "home-manager": {
+      "inputs": {
+        "nixpkgs": "nixpkgs"
+      },
+      "locked": {
+        "lastModified": 1600023128,
+        "narHash": "sha256-oSkMOe0rQ90bC5pfNSl85ren05cmk9Z9xrzrf5rVbr0=",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "472ca211cac604efdf621337067a237be9df389e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1600113248,
+        "narHash": "sha256-YE24bzPttaMnAncNA3yyymUcftcxCCIBleckGCi6eu0=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "0023908b4ecef4e889a9bb524394f53c014950fe",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "type": "indirect"
+      }
+    },
+    "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1599903709,
+        "narHash": "sha256-tinVKY7zRdSXmVOp7BAulNtIb2iP5nvNp5UAxihKXNI=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "252bfe0107587d40092057f338e9ffcf7bbd90cb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-20.03",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_unstable": {
+      "locked": {
+        "lastModified": 1599858719,
+        "narHash": "sha256-CwcBj3hB5+xdAQigGDTTTynubj+fAFLEr2vXtrKLytI=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "e0759a49733dfc3aa225b8a7423c00da6e1ecb67",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "david-config": "david-config",
+        "home-manager": "home-manager",
+        "nixpkgs": "nixpkgs_2",
+        "nixpkgs_unstable": "nixpkgs_unstable"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}

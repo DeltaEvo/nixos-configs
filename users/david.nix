@@ -1,37 +1,43 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, david-config, ... }:
 
 let
-  sysPkgs = pkgs;
-  channels = import ../channels.nix;
-  pkgs = channels.unstable;
-  polybar = pkgs.polybar.override {
+  polybar = pkgs.unstable.polybar.override {
     i3GapsSupport = true;
     githubSupport = true;
     mpdSupport = true;
   };
-  winetricks = pkgs.winetricks.override { wine = pkgs.wineStaging; };
-  confDir = ./david.config;
+  winetricks = pkgs.unstable.winetricks.override { wine = pkgs.unstable.wineStaging; };
 in {
   users.extraUsers.david = {
     isNormalUser = true;
     home = "/home/david";
-    extraGroups = [ "wheel" "networkmanager" "docker" ];
-    shell = sysPkgs.fish;
+    extraGroups = [ "wheel" "networkmanager" "docker" "vboxusers" ];
+    shell = pkgs.unstable.fish;
   };
 
   programs.fish.enable = true;
 
-  services.udev.packages = with sysPkgs; [ yubikey-personalization ];
+  programs.adb.enable = true;
+
+  services.udev.packages = with pkgs; [ yubikey-personalization ];
+
+  services.dbus.packages = with pkgs; [ gnome3.dconf ];
+
+  # For Eiffel
+  boot.blacklistedKernelModules = [ "btusb" ];
+  services.udev.extraRules = ''
+    SUBSYSTEM=="usb", ATTR{bDeviceClass}=="e0", ATTR{bDeviceSubClass}=="01", ATTR{bDeviceProtocol}=="01", GROUP="wheel"
+  '';
 
   services.pcscd.enable = true;
 
   home-manager.users.david = {
     home.file = lib.listToAttrs (map (name:
       (lib.nameValuePair ".config/${name}" ({
-        source = "${confDir}/${name}";
-      }))) (builtins.attrNames (builtins.readDir confDir)));
+        source = "${david-config}/${name}";
+      }))) (builtins.attrNames (builtins.readDir david-config)));
 
-    home.packages = with pkgs;
+    home.packages = with pkgs.unstable;
       ([
         manpages
         htop
@@ -77,16 +83,16 @@ in {
       enable = true;
       windowManager.awesome = { enable = true; };
     };
-    services.compton.enable = config.services.xserver.enable;
+    services.picom.enable = config.services.xserver.enable;
 
     gtk = {
       enable = config.services.xserver.enable;
       theme = {
-        package = pkgs.arc-theme;
+        package = pkgs.unstable.arc-theme;
         name = "Arc-Dark";
       };
       iconTheme = {
-        package = pkgs.papirus-icon-theme;
+        package = pkgs.unstable.papirus-icon-theme;
         name = "Papirus-Dark";
       };
     };
