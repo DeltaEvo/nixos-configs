@@ -18,7 +18,9 @@
     },
     "home-manager": {
       "inputs": {
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": [
+          "nixpkgs"
+        ]
       },
       "locked": {
         "lastModified": 1600023128,
@@ -36,30 +38,16 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1600113248,
-        "narHash": "sha256-YE24bzPttaMnAncNA3yyymUcftcxCCIBleckGCi6eu0=",
+        "lastModified": 1610308958,
+        "narHash": "sha256-PCqiZdw6vw7z0o8qELsvbPqvljjfmtNFVl3BXleLi64=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "0023908b4ecef4e889a9bb524394f53c014950fe",
-        "type": "github"
-      },
-      "original": {
-        "id": "nixpkgs",
-        "type": "indirect"
-      }
-    },
-    "nixpkgs_2": {
-      "locked": {
-        "lastModified": 1599903709,
-        "narHash": "sha256-tinVKY7zRdSXmVOp7BAulNtIb2iP5nvNp5UAxihKXNI=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "252bfe0107587d40092057f338e9ffcf7bbd90cb",
+        "rev": "41dddb1283733c4993cb6be9573d5cef937c1375",
         "type": "github"
       },
       "original": {
         "owner": "NixOS",
-        "ref": "nixos-20.03",
+        "ref": "nixos-20.09",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -84,7 +72,7 @@
       "inputs": {
         "david-config": "david-config",
         "home-manager": "home-manager",
-        "nixpkgs": "nixpkgs_2",
+        "nixpkgs": "nixpkgs",
         "nixpkgs_unstable": "nixpkgs_unstable"
       }
     }

@@ -11,7 +11,7 @@ in {
   users.extraUsers.david = {
     isNormalUser = true;
     home = "/home/david";
-    extraGroups = [ "wheel" "networkmanager" "docker" "vboxusers" ];
+    extraGroups = [ "wheel" "networkmanager" "docker" "vboxusers" "dialout" ];
     shell = pkgs.unstable.fish;
   };
 
@@ -32,10 +32,10 @@ in {
   services.pcscd.enable = true;
 
   home-manager.users.david = {
-    home.file = lib.listToAttrs (map (name:
+    home.file = builtins.removeAttrs (lib.listToAttrs (map (name:
       (lib.nameValuePair ".config/${name}" ({
         source = "${david-config}/${name}";
-      }))) (builtins.attrNames (builtins.readDir david-config)));
+     }))) (builtins.attrNames (builtins.readDir david-config)))) [".config/fish"];
 
     home.packages = with pkgs.unstable;
       ([
@@ -79,11 +79,35 @@ in {
         #			electrum
       ]);
 
+    home.keyboard = null; # Let system chose keyboard
+
     xsession = pkgs.lib.mkIf config.services.xserver.enable {
       enable = true;
       windowManager.awesome = { enable = true; };
     };
     services.picom.enable = config.services.xserver.enable;
+
+    programs.fish = {
+      enable = true;
+      plugins = [
+        {
+          name = "theme-bobthefish";
+          src = let
+	    bobthefish = pkgs.fetchFromGitHub {
+	      owner = "oh-my-fish";
+              repo = "theme-bobthefish";
+              rev = "12b829e0bfa0b57a155058cdb59e203f9c1f5db4";
+              sha256 = "00by33xa9rpxn1rxa10pvk0n7c8ylmlib550ygqkcxrzh05m72bw";
+            };
+	  in
+	  pkgs.runCommand "theme-bobthefish" {} ''
+	    mkdir -p $out/functions
+	    cp -r ${bobthefish}/functions/*.fish $out/functions
+	    cp ${bobthefish}/*.fish $out/functions
+	  '';
+        }
+      ];
+    };
 
     gtk = {
       enable = config.services.xserver.enable;
