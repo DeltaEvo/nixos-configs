@@ -75,6 +75,7 @@ in {
         #			spotify
         kitty
         firefox-devedition-bin
+        gsettings-desktop-schemas
         winetricks
         #			electrum
       ]);
