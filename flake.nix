@@ -1,99 +1,40 @@
 {
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-20.09";
-  inputs.nixpkgs_unstable = { url = "github:NixOS/nixpkgs/nixos-unstable"; flake = false; };
+  inputs.nixpkgs_unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
   inputs.home-manager.url = "github:nix-community/home-manager";
   inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
   inputs.david-config = { url = "github:DeltaEvo/.config"; flake = false; };
 
-  outputs = { self, nixpkgs, nixpkgs_unstable, home-manager, david-config }: {
-    nixosConfigurations.Zeus = nixpkgs.lib.nixosSystem rec {
+  outputs = { self, nixpkgs, nixpkgs_unstable, home-manager, david-config }:
+  let
+    unstable-module = { config, ... }: {
+      nixpkgs.overlays = [
+        (final: prev: {
+          unstable = import nixpkgs_unstable {
+            config = config.nixpkgs.config;
+            system = config.nixpkgs.localSystem.system;
+          };
+        })
+      ];
+    };
+  in {
+    nixosConfigurations.Zeus = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = { inherit david-config; };
       modules = [
-        ({ pkgs, config, ... }: {
-          system.configurationRevision = nixpkgs.lib.mkIf (self ? rev) self.rev;
-
-          nixpkgs.overlays = [
-            (final: prev: {
-              unstable = import nixpkgs_unstable { config = { allowUnfree = true; }; inherit system; };
-            })
-          ];
-
-          imports = [ ./hardware/thinkpad_e570.nix ./common.nix ];
-
-          networking.hostName = "Zeus";
-
-          # Development tools
-          virtualisation.docker.enable = true;
-          services.mongodb.enable = true;
-          services.mysql.enable = true;
-          services.mysql.package = pkgs.mariadb;
-
-          services.xserver.enable = true;
-          services.xserver.displayManager.defaultSession = "xsession";
-          services.xserver.displayManager.session = [
-            {
-              manage = "desktop";
-              name = "xsession";
-              start = ''exec $HOME/.xsession'';
-            }
-          ];
-
-          # Disable bluetooth it suck batery
-          hardware.bluetooth.enable = false;
-
-          home-manager.useGlobalPkgs = true;
-
-          boot.binfmt.emulatedSystems = [ "armv7l-linux" ];
-
-          virtualisation.virtualbox.host.enable = true;
-
-          nix.package = pkgs.nixUnstable;
-          nix.extraOptions = ''
-            experimental-features = nix-command flakes
-          '';
-        })
+        (_args: { system.configurationRevision = nixpkgs.lib.mkIf (self ? rev) self.rev; })
+        (import ./machines/zeus.nix)
+        unstable-module
         home-manager.nixosModules.home-manager
       ];
     };
-
     nixosConfigurations.Hades = nixpkgs.lib.nixosSystem rec {
       system = "x86_64-linux";
       specialArgs = { inherit david-config; };
       modules = [
-        ({ pkgs, config, ... }: {
-          system.configurationRevision = nixpkgs.lib.mkIf (self ? rev) self.rev;
-
-          nixpkgs.overlays = [
-            (final: prev: {
-              unstable = import nixpkgs_unstable { config = { allowUnfree = true; }; inherit system; };
-            })
-          ];
-
-          imports = [ ./hardware/matebook_x.nix ./common.nix ];
-
-          networking.hostName = "Hades";
-
-          # Development tools
-          virtualisation.docker.enable = true;
-
-          services.xserver.enable = true;
-          services.xserver.desktopManager.xterm.enable = true;
-
-          # Disable bluetooth it suck batery
-          hardware.bluetooth.enable = false;
-
-          home-manager.useGlobalPkgs = true;
-
-          virtualisation.virtualbox.host.enable = true;
-
-	  security.sudo.wheelNeedsPassword = false;
-
-          nix.package = pkgs.nixUnstable;
-          nix.extraOptions = ''
-            experimental-features = nix-command flakes
-          '';
-        })
+        (_args: { system.configurationRevision = nixpkgs.lib.mkIf (self ? rev) self.rev; })
+        (import ./machines/hades.nix)
+        unstable-module
         home-manager.nixosModules.home-manager
       ];
     };
