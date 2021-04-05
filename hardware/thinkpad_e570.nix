@@ -47,8 +47,8 @@
   services.fstrim.enable = true;
 
   # UK Keyboard Layout
-  console.keyMap = "uk";
-  services.xserver.layout = "gb";
+  console.keyMap = "us";
+  services.xserver.layout = "us";
   services.xserver.xkbOptions = "compose:ralt";
 
   # Fingerprint device
