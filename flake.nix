@@ -26,6 +26,8 @@
           # Development tools
           virtualisation.docker.enable = true;
           services.mongodb.enable = true;
+          services.mysql.enable = true;
+          services.mysql.package = pkgs.mariadb;
 
           services.xserver.enable = true;
           services.xserver.displayManager.defaultSession = "xsession";
