@@ -12,13 +12,11 @@
 
   services.xserver.enable = true;
   services.xserver.displayManager.defaultSession = "xsession";
-  services.xserver.displayManager.session = [
-    {
-      manage = "desktop";
-      name = "xsession";
-      start = ''exec $HOME/.xsession'';
-    }
-  ];
+  services.xserver.displayManager.session = [{
+    manage = "desktop";
+    name = "xsession";
+    start = "exec $HOME/.xsession";
+  }];
 
   # Disable bluetooth it suck batery
   hardware.bluetooth.enable = false;

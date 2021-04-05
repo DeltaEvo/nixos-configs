@@ -6,7 +6,8 @@ let
     githubSupport = true;
     mpdSupport = true;
   };
-  winetricks = pkgs.unstable.winetricks.override { wine = pkgs.unstable.wineStaging; };
+  winetricks =
+    pkgs.unstable.winetricks.override { wine = pkgs.unstable.wineStaging; };
 in {
   users.extraUsers.david = {
     isNormalUser = true;
@@ -38,7 +39,8 @@ in {
     home.file = builtins.removeAttrs (lib.listToAttrs (map (name:
       (lib.nameValuePair ".config/${name}" ({
         source = "${david-config}/${name}";
-     }))) (builtins.attrNames (builtins.readDir david-config)))) [".config/fish"];
+      }))) (builtins.attrNames (builtins.readDir david-config))))
+      [ ".config/fish" ];
 
     home.packages = with pkgs.unstable;
       ([
@@ -93,24 +95,21 @@ in {
 
     programs.fish = {
       enable = true;
-      plugins = [
-        {
-          name = "theme-bobthefish";
-          src = let
-	    bobthefish = pkgs.fetchFromGitHub {
-	      owner = "oh-my-fish";
-              repo = "theme-bobthefish";
-              rev = "12b829e0bfa0b57a155058cdb59e203f9c1f5db4";
-              sha256 = "00by33xa9rpxn1rxa10pvk0n7c8ylmlib550ygqkcxrzh05m72bw";
-            };
-	  in
-	  pkgs.runCommand "theme-bobthefish" {} ''
-	    mkdir -p $out/functions
-	    cp -r ${bobthefish}/functions/*.fish $out/functions
-	    cp ${bobthefish}/*.fish $out/functions
-	  '';
-        }
-      ];
+      plugins = [{
+        name = "theme-bobthefish";
+        src = let
+          bobthefish = pkgs.fetchFromGitHub {
+            owner = "oh-my-fish";
+            repo = "theme-bobthefish";
+            rev = "12b829e0bfa0b57a155058cdb59e203f9c1f5db4";
+            sha256 = "00by33xa9rpxn1rxa10pvk0n7c8ylmlib550ygqkcxrzh05m72bw";
+          };
+        in pkgs.runCommand "theme-bobthefish" { } ''
+          mkdir -p $out/functions
+          cp -r ${bobthefish}/functions/*.fish $out/functions
+          cp ${bobthefish}/*.fish $out/functions
+        '';
+      }];
     };
 
     gtk = {

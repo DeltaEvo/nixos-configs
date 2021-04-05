@@ -5,11 +5,10 @@
 
 {
 
-  imports =
-    [ (modulesPath + "/profiles/qemu-guest.nix")
-    ];
+  imports = [ (modulesPath + "/profiles/qemu-guest.nix") ];
 
-  boot.initrd.availableKernelModules = [ "ata_piix" "uhci_hcd" "virtio_pci" "sd_mod" ];
+  boot.initrd.availableKernelModules =
+    [ "ata_piix" "uhci_hcd" "virtio_pci" "sd_mod" ];
 
   # Load graphics driver in stage 1
   boot.initrd.kernelModules = [ "bochs_drm" ];
@@ -24,19 +23,18 @@
     "libiscsi.debug_libiscsi_eh=1"
   ];
 
-  fileSystems."/" =
-    { device = "/dev/disk/by-uuid/02e95849-8820-46bc-befd-5c478a3db8e6";
-      fsType = "ext4";
-    };
+  fileSystems."/" = {
+    device = "/dev/disk/by-uuid/02e95849-8820-46bc-befd-5c478a3db8e6";
+    fsType = "ext4";
+  };
 
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/DB6D-83C0";
-      fsType = "vfat";
-    };
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/DB6D-83C0";
+    fsType = "vfat";
+  };
 
   swapDevices =
-    [ { device = "/dev/disk/by-uuid/2a18c5cc-1c17-4ca2-97f3-6c7be51ff713"; }
-    ];
+    [{ device = "/dev/disk/by-uuid/2a18c5cc-1c17-4ca2-97f3-6c7be51ff713"; }];
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
