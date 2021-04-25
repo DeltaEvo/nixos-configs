@@ -30,6 +30,7 @@
   services.kubernetes = {
     roles = [ "master" "node" ];
     masterAddress = "oracle.delta.sh";
+    kubelet.extraOpts = "--fail-swap-on=false";
   };
 
   networking.extraHosts = "127.0.0.1 oracle.delta.sh";
