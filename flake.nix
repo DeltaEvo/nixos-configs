@@ -54,7 +54,7 @@
         ];
       };
 
-      nixosConfigurations.Oracle = nixpkgs.lib.nixosSystem rec {
+      nixosConfigurations.oracle = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
         specialArgs = { inherit david-config; };
         modules = [
@@ -68,13 +68,13 @@
         ];
       };
 
-      deploy.nodes.Oracle = {
+      deploy.nodes.oracle = {
         hostname = "oracle.delta.sh";
         user = "root";
         sshUser = "root";
         autoRollback = false;
         profiles.system.path = deploy-rs.lib.x86_64-linux.activate.nixos
-          self.nixosConfigurations.Oracle;
+          self.nixosConfigurations.oracle;
       };
 
       checks = builtins.mapAttrs

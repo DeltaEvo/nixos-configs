@@ -2,7 +2,7 @@
 
   imports = [ ../hardware/oracle_compute.nix ../common.nix ];
 
-  networking.hostName = "Oracle";
+  networking.hostName = "oracle";
 
   # Disable bluetooth it suck batery
   hardware.bluetooth.enable = false;
@@ -31,6 +31,8 @@
     roles = [ "master" "node" ];
     masterAddress = "oracle.delta.sh";
   };
+
+  networking.extraHosts = "127.0.0.1 oracle.delta.sh";
 
   networking.firewall.allowedTCPPorts =
     [ config.services.kubernetes.apiserver.securePort ];
