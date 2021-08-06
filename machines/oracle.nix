@@ -35,6 +35,26 @@
 
   networking.extraHosts = "127.0.0.1 oracle.delta.sh";
 
+  services.coredns = {
+    enable = true;
+    config = ''
+      . {
+        kubernetes cluster.local {
+          endpoint https://oracle.delta.sh:6443
+          tls /var/lib/kubernetes/secrets/cluster-admin.pem /var/lib/kubernetes/secrets/cluster-admin-key.pem /var/lib/kubernetes/secrets/ca.pem
+          pods disabled
+        }
+        k8s_external svc.delta.sh svc.aresrpg.fr
+      }
+    '';
+    package = pkgs.coredns.overrideAttrs (oldAttrs: {
+      patches = [../coredns_nodeport.patch];
+    });
+  };
+
   networking.firewall.allowedTCPPorts =
-    [ config.services.kubernetes.apiserver.securePort ];
+    [ config.services.kubernetes.apiserver.securePort 53 ];
+  networking.firewall.allowedUDPPorts = [ 53 ];
+
+  systemd.services.coredns.serviceConfig.DynamicUser = pkgs.lib.mkForce false;
 }

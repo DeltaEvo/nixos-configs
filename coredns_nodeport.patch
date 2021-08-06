@@ -1,0 +1,23 @@
+diff --git a/plugin/kubernetes/external.go b/plugin/kubernetes/external.go
+index 42495a43..f67ee84c 100644
+--- a/plugin/kubernetes/external.go
++++ b/plugin/kubernetes/external.go
+@@ -76,6 +76,18 @@ func (k *Kubernetes) External(state request.Request) ([]msg.Service, int) {
+ 				s := msg.Service{Host: ip, Port: int(p.Port), TTL: k.ttl}
+ 				s.Key = strings.Join([]string{zonePath, svc.Namespace, svc.Name}, "/")
+ 
++				services = append(services, s)
++			}
++		}
++		if svc.Type == "NodePort" {
++			for _, p := range svc.Ports {
++				if !(match(port, p.Name) && match(protocol, string(p.Protocol))) {
++					continue
++				}
++				rcode = dns.RcodeSuccess
++				s := msg.Service{Host: "130.61.187.75", Port: int(p.NodePort), TTL: k.ttl}
++				s.Key = strings.Join([]string{zonePath, svc.Namespace, svc.Name}, "/")
++
+ 				services = append(services, s)
+ 			}
+ 		}
